@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm freecad_saves/python_generated_post.FCStd
-python3 src/angle_rail_generate.py 
-freecad freecad_saves/python_generated_post.FCStd
+rm freecad_saves/*
+python3 src/csv_rail_generate.py
+# freecad freecad_saves/python_generated_post.FCStd
