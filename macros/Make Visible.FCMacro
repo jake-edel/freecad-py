@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+
+# Macro Begin: /home/jakob/Code/freecad/Macros/Make Visible.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++
+import FreeCAD
+
+Gui.getDocument("python_generated_post").getObject("vert_post01").Visibility=True
+Gui.getDocument("python_generated_post").getObject("top_rail01").Visibility=True
+Gui.getDocument("python_generated_post").getObject("vert_post02").Visibility=True
+Gui.activeDocument().activeView().viewIsometric()
+Gui.SendMsgToActiveView("ViewSelection")
+# Macro End: /home/jakob/Code/freecad/Macros/Make Visible.FCMacro +++++++++++++++++++++++++++++++++++++++++++++++++

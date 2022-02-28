@@ -1,0 +1,7 @@
+from PySide import QtGui
+
+userInput = QtGui.QInputDialog.getText(None, "Stair Run",  "Enter stair run in decimal feet ex. '3.5'")
+
+if userInput[1]:
+    stairRun = userInput[0]  + " ft"
+    App.getDocument('rail_variable_angle').getObject('Sketch').setDatum(1,App.Units.Quantity(stairRun))
