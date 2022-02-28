@@ -2,7 +2,15 @@ import sys
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
-import math
+import math, csv
+
+with open('rise_run.csv', newline = '') as csvfile:
+    read = csv.reader(csvfile, delimiter=' ', quotechar='|')
+    next(read)
+    for row in read:
+        print(row[0].split(','))
+        # print(', '.join(row))
+
 
 stairRise = float(sys.argv[1])
 stairRun = float(sys.argv[2])
@@ -12,7 +20,7 @@ railAngle = math.degrees(math.atan(stairRise/stairRun))
 railHeight = 36
 
 # Out => Out
-railLength = 60
+# railLength = 60
 
 materialWidth = 1.5
 
@@ -41,7 +49,7 @@ topPost.Placement=App.Placement(
 
 topRail = doc.addObject("Part::Box", "top_rail01")
 
-topRail.Length = railLength + 30
+topRail.Length = stairRun + 20
 topRail.Width = materialWidth
 topRail.Height = materialWidth
 
