@@ -1,5 +1,5 @@
 import sys
-import this
+# import this
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
@@ -76,11 +76,12 @@ with open('rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
     next(csv)
     rail_counter = 1
+    input("RAIL GENERATOR: Presss ENTER to generate rail.")
     for row in csv:
         riseRun = row[0].split(',')
         stairRise = float(riseRun[0])
         stairRun = float(riseRun[1])
         railAngle = math.degrees(math.atan(stairRise/stairRun))
         RailGenerator.generate_rail(rail_counter)
-        input("Generated rail with a " + str(stairRise) + " in rise and a " + str(stairRun) + " in run")
+        input("Generated rail with a " + str(stairRise) + '" in rise and a ' + str(stairRun) + '" in run')
         rail_counter += 1
