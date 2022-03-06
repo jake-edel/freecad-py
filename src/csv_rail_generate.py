@@ -70,7 +70,7 @@ class RailGenerator:
         PlacePart.top_rail(topRail)
 
     def save_rail(doc, counter):
-        doc.saveAs(u"/home/jakob/code/freecad/freecad_saves/generated_rail_" + str(counter).zfill(3) + ".FCStd")
+        doc.saveAs(u"/home/jakobedel/code/freecad-py/freecad_saves/generated_rail_" + str(counter).zfill(3) + ".FCStd")
  
 with open('rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
