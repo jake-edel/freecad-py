@@ -3,6 +3,7 @@ import sys
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
+import FreeCADGui
 import math, csv
 
 railHeight = 36
@@ -49,11 +50,12 @@ class RailGenerator:
 
     def generate_rail(counter):
         doc = RailGenerator.create_doc()
-        RailGenerator.create_bottom_post(doc)
-        RailGenerator.create_top_post(doc)
-        RailGenerator.create_top_rail(doc)
+        botPost = RailGenerator.create_bottom_post(doc)
+        topPost = RailGenerator.create_top_post(doc)
+        topRail = RailGenerator.create_top_rail(doc)
         doc.recompute
         RailGenerator.save_rail(doc, counter)
+        RailGenerator.save_step([botPost,topPost,topRail], counter)
 
     def create_doc():
         return App.newDocument("scripted rail")
@@ -71,6 +73,9 @@ class RailGenerator:
 
     def save_rail(doc, counter):
         doc.saveAs(u"/home/jakobedel/code/freecad-py/freecad_saves/generated_rail_" + str(counter).zfill(3) + ".FCStd")
+
+    def save_step(parts, counter):
+        FreeCADGui.export(parts,u"//wsl$/Ubuntu/home/jakobedel/code/freecad-py/freecad_saves/" + str(counter).zfill(3) + ".step")
  
 with open('rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
