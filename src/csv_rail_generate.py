@@ -3,7 +3,8 @@ import sys
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
-import FreeCADGui
+import FreeCADGui as Gui
+import ImportGui
 import math, csv
 
 railHeight = 36
@@ -75,7 +76,7 @@ class RailGenerator:
         doc.saveAs(u"/home/jakobedel/code/freecad-py/freecad_saves/generated_rail_" + str(counter).zfill(3) + ".FCStd")
 
     def save_step(parts, counter):
-        FreeCADGui.export(parts,u"//wsl$/Ubuntu/home/jakobedel/code/freecad-py/freecad_saves/" + str(counter).zfill(3) + ".step")
+        ImportGui.export(parts,u"//wsl$/Ubuntu/home/jakobedel/code/freecad-py/freecad_saves/" + str(counter).zfill(3) + ".step")
  
 with open('rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
