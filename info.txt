@@ -1,0 +1,12 @@
+OS: Windows 10 Version 2009
+Word size of OS: 64-bit
+Word size of FreeCAD: 64-bit
+Version: 0.19.24267 +99 (Git)
+Build type: Release
+Branch: Branch_0.19.3
+Hash: 6530e364184ce05ccff39501e175cf2237e6ee4b
+Python version: 3.8.6+
+Qt version: 5.15.2
+Coin version: 4.0.1
+OCC version: 7.5.3
+Locale: English/United States (en_US)
