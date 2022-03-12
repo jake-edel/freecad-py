@@ -31,8 +31,7 @@ class Sketch:
 # Find oppisite leg given angle and adjacent leg
 def find_oppisite(angle, adj):
     opp = round(math.tan(math.radians(angle)) * adj, 3)
-    print("Opposite Leg = " + str(opp))
-    return round(math.tan(math.radians(angle)) * adj, 3)
+    return opp
 
 # Find short leg of post
 def short_leg(height, angle, adj):
@@ -41,21 +40,30 @@ def short_leg(height, angle, adj):
 # Calculate Rail Angle
 def rail_angle(rise, run):
     angle = round(math.degrees(math.atan(rise/run)), 3)
-    print("Rail Angle = " + str(angle))
-    return math.degrees(math.atan(rise/run))
+    return angle
 
 # Calculate miter angle
 def mitre_angle(angle):
-   return abs(angle - 90) / 2
+    mitre = abs(angle - 90) / 2
+    return mitre
+
+def alt_angle(angle):
+    return abs(angle - 90)
 
 
 postHeight = 36
 materialWidth = 1.5
-rise = 3
-run = 4
+rise = 24
+run = 60
 railAngle = rail_angle(rise, run)
 mitreAngle = mitre_angle(railAngle)
 negMitreAngle = mitreAngle * -1
+
+### LOG ###
+print("Rail Angle: " + str(railAngle))
+print("Mitre Angle: " + str(mitreAngle))
+print("Post Length (Long): " + str(postHeight))
+print("Post Length (Short): " + str(short_leg(postHeight, mitreAngle, materialWidth)))
 
 
 ## Bottom Post
@@ -83,10 +91,36 @@ sketch.add_line(longPt, shortPt)
 # Short Leg
 sketch.add_line(originWidth, shortPt)
 
-# sketch.sketch.addConstraint(Sketcher.Constraint("Horizontal", 0))
-# sketch.sketch.addConstraint(Sketcher.Constraint("Vertical", 1))
-# sketch.sketch.addConstraint(Sketcher.Constraint("Parallel", 1, 3))
-# sketch.sketch.addConstraint(Sketcher.Constraint('Coincident',0,1,1,1))
-# sketch.sketch.addConstraint(Sketcher.Constraint('Coincident', 0, 2, 3, 2))
+
+#Line Indexies
+#
+# 0 - Base line
+# 1 - Long Leg
+# 2 - Cut Face
+# 3 - Short Leg
+
+
+## Constrain Base to Origin
+sketch.sketch.addConstraint(Sketcher.Constraint('Coincident', -1,1,0,1))
+## Connect Points
+sketch.sketch.addConstraint(Sketcher.Constraint('Coincident',0,1,1,1))
+sketch.sketch.addConstraint(Sketcher.Constraint('Coincident', 0, 2, 3, 1))
+sketch.sketch.addConstraint(Sketcher.Constraint('Coincident', 1, 2, 2, 1))
+sketch.sketch.addConstraint(Sketcher.Constraint('Coincident', 2, 2, 3, 2))
+
+## Constrain Horizontal and Vertical
+sketch.sketch.addConstraint(Sketcher.Constraint("Horizontal", 0))
+sketch.sketch.addConstraint(Sketcher.Constraint("Vertical", 1))
+sketch.sketch.addConstraint(Sketcher.Constraint("Vertical", 3))
+
+## Constrain Length + Width
+sketch.sketch.addConstraint(Sketcher.Constraint('DistanceX', 0, 1, 0, 2, App.Units.Quantity(materialWidth)))
+sketch.sketch.addConstraint(Sketcher.Constraint('DistanceY', 1, 1, 1, 2, App.Units.Quantity(postHeight)))
+
+## Constrain Angle
+sketch.sketch.addConstraint(Sketcher.Constraint('Angle', 1, 2, 2, 1, App.Units.Quantity('{0} deg'.format(str(alt_angle(railAngle))))))
+
+
+
 
 sketch.save_doc()
