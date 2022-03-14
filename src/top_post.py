@@ -10,31 +10,21 @@ import Sketcher
 class TopPost:
     def __init__(self, width, length, rise, run, mitreAngle, railAngle):
         self.length = length
-        # self.shortLeg = TriangleHelper.short_leg(length, mitreAngle, width)
         self.width = width
-        # self.railAngle = railAngle
-        # self.mitreAngle = mitreAngle
+
         self.run = run
         self.rise = rise
 
-        # Origin
         self.origin = App.Vector(run, rise, 0)
-        # X: material width, Y: 0
         self.originOffset = self.origin + App.Vector(width, 0, 0)
-        # Long point of mitre cut
         self.longPt = self.origin + App.Vector(0, length, 0)
-        # Short point of mitre cut
         self.shortPt = self.origin + App.Vector(width, length, 0)
 
 
     def draw_lines(self, sketchFile):
-        # Base - 0
         sketchFile.add_line(self.origin, self.originOffset)
-        # Long Leg - 1
         sketchFile.add_line(self.origin, self.longPt)
-        # Cut Face - 2
         sketchFile.add_line(self.longPt, self.shortPt)
-        # Short Leg - 3
         sketchFile.add_line(self.originOffset, self.shortPt)
 
     def add_constraints(self, sketchFile):
@@ -64,9 +54,7 @@ class TopPost:
 
 
     def log_dimensions(self):
-        print("Bottom Post")
-        print("Rail Angle: " + str(self.railAngle))
-        print("Mitre Angle: " + str(self.mitreAngle))
-        print("Length (Long): " + str(self.length))
-        print("Length (Short): " + str(TriangleHelper.short_leg(self.length, self.mitreAngle, self.width)))
+        print("Top Post")
+        print("Length: " + str(self.length))
+        print()
 

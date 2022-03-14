@@ -53,9 +53,8 @@ class TopRail:
 
 
     def log_dimensions(self):
-        print("Bottom Post")
-        print("Rail Angle: " + str(self.railAngle))
-        print("Mitre Angle: " + str(self.mitreAngle))
+        print("Top Rail")
+        print("Top Mitre: " + str(self.railAngle))
+        print("Bottom Mitre: " + str(self.mitreAngle))
         print("Length (Long): " + str(self.length))
-        print("Length (Short): " + str(TriangleHelper.short_leg(self.length, self.mitreAngle, self.width)))
-
+        print()

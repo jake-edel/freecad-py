@@ -28,7 +28,10 @@ class RailBuilder:
         self.add_constraints(botPost)
         self.add_constraints(topRail)
         self.add_constraints(topPost)
-        self.log_dimensions(botPost)
+        self.log_rail_dimensions()
+        self.log_part_dimensions(botPost)
+        self.log_part_dimensions(topRail)
+        self.log_part_dimensions(topPost)
         self.save_doc()
 
     def draw_lines(self, part):
@@ -37,8 +40,16 @@ class RailBuilder:
     def add_constraints(self, part):
         part.add_constraints(self.sketchFile)
 
-    def log_dimensions(self, part):
+    def log_part_dimensions(self, part):
         part.log_dimensions()
+
+    def log_rail_dimensions(self):
+        print("Rail Generated")
+        print("Material Width: " + str(self.materialWidth))
+        print("Rise: " + str(self.rise))
+        print("Run: " + str(self.run))
+        print("Rail Angle: " + str(self.railAngle))
+        print()
 
     def save_doc(self):
         self.sketchFile.save_doc()
