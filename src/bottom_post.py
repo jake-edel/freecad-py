@@ -7,28 +7,31 @@ import Sketcher
 
 class BottomPost:
     def __init__(self, width, length, mitreAngle, railAngle):
-        # Origin
-        self.origin = App.Vector(0, 0, 0)
-        # X: material width, Y: 0
-        self.originWidth = App.Vector(width, 0, 0)
-        # Long point of mitre cut
-        self.longPt = App.Vector(0, length, 0)
-        # Short point of mitre cut0
-        self.shortPt = App.Vector(width, TriangleHelper.short_leg(length, mitreAngle, width), 0)
         self.length = length
+        self.shortLeg = TriangleHelper.short_leg(length, mitreAngle, width)
         self.width = width
         self.railAngle = railAngle
         self.mitreAngle = mitreAngle
 
+        # Origin
+        self.origin = App.Vector(0, 0, 0) + App.Vector(1, 1, 1)
+        # X: material width, Y: 0
+        self.originOffset = App.Vector(width, 0, 0)
+        # Long point of mitre cut
+        self.longPt = App.Vector(0, length, 0)
+        # Short point of mitre cut0
+        self.shortPt = App.Vector(width, self.shortLeg, 0)
+
+
     def draw_lines(self, sketchFile):
         # Base - 0
-        sketchFile.add_line(self.origin, self.originWidth)
+        sketchFile.add_line(self.origin, self.originOffset)
         # Long Leg - 1
         sketchFile.add_line(self.origin, self.longPt)
         # Cut Face - 2
         sketchFile.add_line(self.longPt, self.shortPt)
         # Short Leg - 3
-        sketchFile.add_line(self.originWidth, self.shortPt)
+        sketchFile.add_line(self.originOffset, self.shortPt)
 
     def add_constraints(self, sketchFile):
        ## Constrain Base to Origin
