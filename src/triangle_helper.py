@@ -7,6 +7,10 @@ class TriangleHelper:
         opp = round(math.tan(math.radians(angle)) * adj, 3)
         return opp
 
+    def find_hypotenuse(opp, adj):
+        hyp = math.sqrt(opp ** 2 + adj ** 2)
+        return hyp
+
     # Find short leg of post
     def short_leg(height, angle, adj):
         return height - TriangleHelper.find_oppisite(angle, adj)
