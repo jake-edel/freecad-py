@@ -3,6 +3,7 @@ import sketch_io
 from triangle_helper import TriangleHelper
 from bottom_post import BottomPost
 from top_rail import TopRail
+from top_post import TopPost
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
@@ -19,10 +20,14 @@ class RailBuilder:
 
     def generate_rail(self):
         botPost = BottomPost(self.materialWidth, self.postHeight, self.mitreAngle, self.railAngle)
-        # topRail = TopRail(self.materialWidth, self.postHeight, self.mitreAngle, self.railAngle, botPost)
-        # topPost = TopPost(self.materialWidth, self.postHeight, self.mitreAngle, self.railAngle)
+        topRail = TopRail(self.materialWidth, self.rise, self.run, self.mitreAngle, self.railAngle, botPost)
+        topPost = TopPost(self.materialWidth, self.postHeight, self.rise, self.run, self.mitreAngle, self.railAngle)
         self.draw_lines(botPost)
+        self.draw_lines(topRail)
+        self.draw_lines(topPost)
         self.add_constraints(botPost)
+        self.add_constraints(topRail)
+        self.add_constraints(topPost)
         self.log_dimensions(botPost)
         self.save_doc()
 
