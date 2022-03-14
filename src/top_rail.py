@@ -18,9 +18,9 @@ class TopRail:
         # X: material width, Y: 0
         self.originOffset = botPost.shortPt
         # Long point of mitre cut
-        self.longPt = App.Vector(0, self.length, 0)
+        self.longPt = self.origin + App.Vector(run, rise, 0)
         # Short point of mitre cut0
-        self.shortPt = App.Vector(width, self.shortLeg, 0)
+        self.shortPt = self.originOffset + App.Vector(run - width, rise - TriangleHelper.find_oppisite(railAngle, width), 0)
 
 
     def draw_lines(self, sketchFile):
@@ -34,26 +34,22 @@ class TopRail:
         sketchFile.add_line(self.originOffset, self.shortPt)
 
     def add_constraints(self, sketchFile):
-       ## Constrain Base to Origin
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', -1,1,0,1))
 
         ## Connect Points
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident',0,1,1,1))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 0, 2, 3, 1))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 1, 2, 2, 1))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 2, 2, 3, 2))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 5, 1, 1, 2))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 5, 2, 6, 1))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 6, 2, 7, 2))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 7, 1, 4, 2))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 4, 1, 1, 2))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Coincident', 7, 1, 2, 2))
 
-        ## Constrain Horizontal and Vertical
-        sketchFile.sketch.addConstraint(Sketcher.Constraint("Horizontal", 0))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint("Vertical", 1))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint("Vertical", 3))
+        ## Constrain Parallel
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Parallel', 5, 7))
 
-        ## Constrain Length + Width
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('DistanceX', 0, 1, 0, 2, App.Units.Quantity(self.width)))
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('DistanceY', 1, 1, 1, 2, App.Units.Quantity(self.length)))
 
-        ## Constrain Angle
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Angle', 1, 2, 2, 1, App.Units.Quantity('{0} deg'.format(str(TriangleHelper.alt_angle(self.railAngle))))))
+        # ## Constrain Horizontal and Vertical
+        sketchFile.sketch.addConstraint(Sketcher.Constraint("Vertical", 6))
+
 
 
     def log_dimensions(self):
