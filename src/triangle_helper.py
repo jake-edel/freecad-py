@@ -8,7 +8,7 @@ class TriangleHelper:
         return opp
 
     def find_hypotenuse(opp, adj):
-        hyp = math.sqrt(opp ** 2 + adj ** 2)
+        hyp = round(math.sqrt(opp ** 2 + adj ** 2), 3)
         return hyp
 
     # Find short leg of post
