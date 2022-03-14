@@ -1,4 +1,4 @@
-from sketcher import RailBuilder
+from railbuilder import RailBuilder
 
 rise = 24
 run = 60
