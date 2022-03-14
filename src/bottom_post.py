@@ -14,7 +14,6 @@ class BottomPost:
         self.mitreAngle = mitreAngle
 
         # Origin
-        # self.origin = App.Vector(0, 0, 0) + App.Vector(1, 1, 1)
         self.origin = App.Vector(0, 0, 0)
         # X: material width, Y: 0
         self.originOffset = App.Vector(width, 0, 0)
@@ -54,12 +53,13 @@ class BottomPost:
         sketchFile.sketch.addConstraint(Sketcher.Constraint('DistanceY', 1, 1, 1, 2, App.Units.Quantity(self.length)))
 
         ## Constrain Angle
-        sketchFile.sketch.addConstraint(Sketcher.Constraint('Angle', 1, 2, 2, 1, App.Units.Quantity('{0} deg'.format(str(TriangleHelper.alt_angle(self.railAngle))))))
+        sketchFile.sketch.addConstraint(Sketcher.Constraint('Angle', 1, 2, 2, 1, App.Units.Quantity('{0} deg'.format(str(TriangleHelper.alt_angle(self.mitreAngle))))))
 
 
     def log_dimensions(self):
         print("Bottom Post")
         print("Rail Angle: " + str(self.railAngle))
+        print("Alt Angle: " + str(TriangleHelper.alt_angle(self.mitreAngle)))
         print("Mitre Angle: " + str(self.mitreAngle))
         print("Length (Long): " + str(self.length))
         print("Length (Short): " + str(TriangleHelper.short_leg(self.length, self.mitreAngle, self.width)))
