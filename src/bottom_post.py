@@ -14,7 +14,8 @@ class BottomPost:
         self.mitreAngle = mitreAngle
 
         # Origin
-        self.origin = App.Vector(0, 0, 0) + App.Vector(1, 1, 1)
+        # self.origin = App.Vector(0, 0, 0) + App.Vector(1, 1, 1)
+        self.origin = App.Vector(0, 0, 0)
         # X: material width, Y: 0
         self.originOffset = App.Vector(width, 0, 0)
         # Long point of mitre cut
