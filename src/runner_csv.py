@@ -1,7 +1,7 @@
 import csv
 from railbuilder import RailBuilder
 
-with open('rise_run.csv', newline = '') as csvfile:
+with open('./data/rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
     next(csv)
     rail_counter = 1

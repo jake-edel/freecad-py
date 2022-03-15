@@ -4,7 +4,6 @@ FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
 import FreeCADGui as Gui
-import ImportGui
 import math, csv
 
 railHeight = 36
