@@ -9,7 +9,7 @@ sys.path.append(FREECADPATH)
 import FreeCAD as App
 
 class RailBuilder:
-    def __init__(self, rise, run):
+    def __init__(self, rise, run, counter):
         self.postHeight = 36
         self.materialWidth = 1.5
         self.rise = rise
@@ -17,6 +17,7 @@ class RailBuilder:
         self.railAngle = TriangleHelper.rail_angle(rise, run)
         self.mitreAngle = TriangleHelper.mitre_angle(self.railAngle)
         self.sketchFile = sketch_io.SketchFile()
+        self.counter = counter
 
     def generate_rail(self):
         botPost = BottomPost(self.materialWidth, self.postHeight, self.mitreAngle, self.railAngle)
@@ -32,7 +33,7 @@ class RailBuilder:
         self.log_part_dimensions(botPost)
         self.log_part_dimensions(topRail)
         self.log_part_dimensions(topPost)
-        self.save_doc()
+        self.save_doc(self.counter)
 
     def draw_lines(self, part):
         part.draw_lines(self.sketchFile)
@@ -51,5 +52,5 @@ class RailBuilder:
         print("Rail Angle: " + str(self.railAngle))
         print()
 
-    def save_doc(self):
-        self.sketchFile.save_doc()
+    def save_doc(self, counter):
+        self.sketchFile.save_doc(counter)
