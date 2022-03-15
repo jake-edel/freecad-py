@@ -19,7 +19,7 @@ class BottomPost:
         self.originOffset = App.Vector(width, 0, 0)
         # Long point of mitre cut
         self.longPt = App.Vector(0, length, 0)
-        # Short point of mitre cut0
+        # Short point of mitre cut
         self.shortPt = App.Vector(width, self.shortLeg, 0)
 
 
