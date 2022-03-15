@@ -22,7 +22,7 @@ class TriangleHelper:
 
     # Calculate miter angle
     def mitre_angle(angle):
-        mitre = abs(angle - 90) / 2
+        mitre = round(abs(angle - 90) / 2, 3)
         return mitre
 
     def alt_angle(angle):
