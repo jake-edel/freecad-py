@@ -20,29 +20,32 @@ class RailBuilder:
         self.counter = counter
 
     def generate_rail(self):
+
+        partList = self.generate_parts()
+        self.draw_lines(partList)
+        self.add_constraints(partList)
+        self.log_rail_dimensions()
+        self.log_part_dimensions(partList)
+        self.save_doc(self.counter)
+
+    def generate_parts(self):
         botPost = BottomPost(self.materialWidth, self.postHeight, self.mitreAngle, self.railAngle)
         topRail = TopRail(self.materialWidth, self.rise, self.run, self.mitreAngle, self.railAngle, botPost)
         topPost = TopPost(self.materialWidth, self.postHeight, self.rise, self.run, self.mitreAngle, self.railAngle)
-        self.draw_lines(botPost)
-        self.draw_lines(topRail)
-        self.draw_lines(topPost)
-        self.add_constraints(botPost)
-        self.add_constraints(topRail)
-        self.add_constraints(topPost)
-        self.log_rail_dimensions()
-        self.log_part_dimensions(botPost)
-        self.log_part_dimensions(topRail)
-        self.log_part_dimensions(topPost)
-        self.save_doc(self.counter)
+        return [botPost, topRail, topPost]
 
-    def draw_lines(self, part):
-        part.draw_lines(self.sketchFile)
 
-    def add_constraints(self, part):
-        part.add_constraints(self.sketchFile)
+    def draw_lines(self, parts):
+        for part in parts:
+            part.draw_lines(self.sketchFile)
 
-    def log_part_dimensions(self, part):
-        part.log_dimensions()
+    def add_constraints(self, parts):
+        for part in parts:
+            part.add_constraints(self.sketchFile)
+
+    def log_part_dimensions(self, parts):
+        for part in parts:
+            part.log_dimensions()
 
     def log_rail_dimensions(self):
         print("Rail Generated")
