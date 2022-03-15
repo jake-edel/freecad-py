@@ -13,9 +13,9 @@ class SketchFile:
     def create_doc(self):
         return App.newDocument("sketcher script")
 
-    def save_doc(self):
+    def save_doc(self, counter ):
         self.doc.recompute
-        self.doc.saveAs(u"/home/jakobedel/code/freecad-py/freecad_saves/sketcher_script.FCStd")
+        self.doc.saveAs(u"/home/jakobedel/code/freecad-py/freecad_saves/sketcher_script" + str(counter).zfill(3) + ".FCStd")
         print("Sketch saved sucessfully")
 
     def create_sketch(self):
