@@ -1,6 +1,6 @@
 from railbuilder import RailBuilder
 
-rise = 75
+rise = 30
 run = 75
 counter = 1
 
