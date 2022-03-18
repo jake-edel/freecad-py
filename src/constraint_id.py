@@ -1,6 +1,4 @@
-from ast import Constant
-import sys
-from unittest import skip
+import sys, json
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
@@ -10,26 +8,34 @@ from pprint import pprint
 
 filePath = 'freecad_saves/sketcher_script001.FCStd'
 
-App.openDocument(filePath)
-sketchObj = App.getDocument('sketcher_script001').getObject('Sketch')
+doc = App.openDocument(filePath)
+sketchObj = doc.getObject('Sketch')
 sketchConst = sketchObj.Constraints
 
-# pprint(vars(sketchConst[35]))
+def collect_constraints():
+    constraints = {}
 
-for constraint in sketchConst:
-    if constraint.Name == '':
-        skip
-    else:
-        print('-----')
-        print("Index: " + str(sketchConst.index(constraint)))
-        print(constraint.Name)
-        print(constraint.Value)
-        print(constraint.Type)
-        print("Is Driving? " + str(constraint.Driving))
+    for constraint in sketchConst:
+        if constraint.Name == '':
+            continue
+        else:
+            constraints[constraint.Name] = {
+                "value": str(constraint.Value),
+                "type": constraint.Type,
+                "index": sketchConst.index(constraint),
+                "isDriving?": constraint.Driving
+            }
 
-# App.getDocument('stringer').getObject('Sketch').setDatum(11,App.Units.Quantity('999.00000 mm'))
-# App.getDocument('stringer').recompute()
+    return constraints
 
 
-sketchObj = App.getDocument('sketcher_script001').getObject('Sketch')
-App.getDocument('sketcher_script001').saveAs('stringer12345.FCStd')
+constraints = collect_constraints()
+
+pprint(constraints)
+json.dump(constraints, open('data/constraints.json', 'w'))
+
+sketchObj.setDatum(constraints['Rise']['index'],App.Units.Quantity('75 mm'))
+doc.recompute()
+
+# sketchObj = App.getDocument('sketcher_script001').getObject('Sketch')
+App.getDocument('sketcher_script001').saveAs('test_rail.FCStd')
