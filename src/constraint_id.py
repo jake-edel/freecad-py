@@ -34,8 +34,19 @@ constraints = collect_constraints()
 pprint(constraints)
 json.dump(constraints, open('data/constraints.json', 'w'))
 
+
+
 sketchObj.setDatum(constraints['Rise']['index'],App.Units.Quantity('75 mm'))
 doc.recompute()
 
+
+
 # sketchObj = App.getDocument('sketcher_script001').getObject('Sketch')
 App.getDocument('sketcher_script001').saveAs('test_rail.FCStd')
+
+doc = App.openDocument('test_rail.FCStd')
+sketchObj = doc.getObject('Sketch')
+sketchConst = sketchObj.Constraints
+
+constraints = collect_constraints()
+json.dump(constraints, open('data/constraints_new.json', 'w'))
