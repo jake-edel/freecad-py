@@ -5,48 +5,43 @@ import FreeCAD as App
 from pprint import pprint
 
 
+class ConstraintManager:
 
-filePath = 'freecad_saves/sketcher_script001.FCStd'
+    def __init__(self, filePath):
+        self.open_doc(filePath)
 
-doc = App.openDocument(filePath)
-sketchObj = doc.getObject('Sketch')
-sketchConst = sketchObj.Constraints
+    def open_doc(self, filePath):
+        self.doc = App.openDocument(filePath)
+        self.sketchObj = self.doc.getObject('Sketch')
+        self.constraints = self.collect_constraints()
 
-def collect_constraints():
-    constraints = {}
+    def print_constraints(self):
+        pprint(self.constraints)
 
-    for constraint in sketchConst:
-        if constraint.Name == '':
-            continue
-        else:
-            constraints[constraint.Name] = {
-                "value": str(constraint.Value),
-                "type": constraint.Type,
-                "index": sketchConst.index(constraint),
-                "isDriving?": constraint.Driving
-            }
+    def set_constraint(self, name, value):
+        self.sketchObj.setDatum(self.constraints[name]['index'],App.Units.Quantity(value))
+        self.doc.recompute()
+        self.constraints = self.collect_constraints()
 
-    return constraints
+    def save_constraints(self, filePath):
+        json.dump(self.constraints, open(filePath, 'w'))
 
+    def save_doc(self, filePath):
+        self.doc.saveAs(filePath)
 
-constraints = collect_constraints()
+    def collect_constraints(self):
+        sketchConst = self.sketchObj.Constraints
+        constraints = {}
 
-pprint(constraints)
-json.dump(constraints, open('data/constraints.json', 'w'))
+        for constraint in sketchConst:
+            if constraint.Name == '':
+                continue
+            else:
+                constraints[constraint.Name] = {
+                    "value": str(constraint.Value),
+                    "type": constraint.Type,
+                    "index": sketchConst.index(constraint),
+                    "isDriving?": constraint.Driving
+                }
 
-
-
-sketchObj.setDatum(constraints['Rise']['index'],App.Units.Quantity('75 mm'))
-doc.recompute()
-
-
-
-# sketchObj = App.getDocument('sketcher_script001').getObject('Sketch')
-App.getDocument('sketcher_script001').saveAs('test_rail.FCStd')
-
-doc = App.openDocument('test_rail.FCStd')
-sketchObj = doc.getObject('Sketch')
-sketchConst = sketchObj.Constraints
-
-constraints = collect_constraints()
-json.dump(constraints, open('data/constraints_new.json', 'w'))
+        return constraints
