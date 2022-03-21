@@ -27,3 +27,6 @@ class LocationFinder:
 
     def save_locations(self, filePath):
         json.dump(self.locations, open(filePath, 'w'))
+
+    def print_locations(self):
+        pprint(self.locations)

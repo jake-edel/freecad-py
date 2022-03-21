@@ -1,5 +1,5 @@
 import sketch_io
-from railing import Railing
+from old.sketch_generator.railing import Railing
 
 
 class RailBuilder:
