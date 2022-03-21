@@ -1,4 +1,3 @@
-from pydoc import doc
 import sys, json
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
@@ -11,12 +10,7 @@ class LocationFinder:
 
     def open_doc(self, filePath):
         self.doc = App.openDocument(filePath)
-        # print(vars(self.doc))
         self.sketchObj = self.doc.getObject('Sketch001')
-        print("Geometry Variables: " + str(vars(self.sketchObj)))
-        print(self.sketchObj.Geometry)
-        print(self.sketchObj.Geometry[0])
-        # print(self.sketchObj.Constraints)
 
     def collect_locations(self):
         self.locations = {}
@@ -31,8 +25,5 @@ class LocationFinder:
                 'tag': point.Tag
             }
 
-filePath = "./freecad_saves/sketcher_named_constraints.FCStd"
-
-lf = LocationFinder(filePath)
-lf.collect_locations()
-print(lf.locations)
+    def save_locations(self, filePath):
+        json.dump(self.locations, open(filePath, 'w'))
