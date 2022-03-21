@@ -13,10 +13,7 @@ class ConstraintManager:
     def open_doc(self, filePath):
         self.doc = App.openDocument(filePath)
         self.sketchObj = self.doc.getObject('Sketch')
-        print(vars(self.sketchObj))
-        print(self.sketchObj.ExternalGeometry)
         self.constraints = self.collect_constraints()
-        print(vars(self.sketchObj.Constraints[30]))
 
     def print_constraints(self):
         pprint(self.constraints)
