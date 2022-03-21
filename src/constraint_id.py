@@ -13,13 +13,16 @@ class ConstraintManager:
     def open_doc(self, filePath):
         self.doc = App.openDocument(filePath)
         self.sketchObj = self.doc.getObject('Sketch')
+        print(vars(self.sketchObj))
+        print(self.sketchObj.ExternalGeometry)
         self.constraints = self.collect_constraints()
+        print(vars(self.sketchObj.Constraints[30]))
 
     def print_constraints(self):
         pprint(self.constraints)
 
     def set_constraint(self, name, value):
-        self.sketchObj.setDatum(self.constraints[name]['index'],App.Units.Quantity(value))
+        self.sketchObj.setDatum(self.constraints[name]['index'], App.Units.Quantity(str(value) + " mm"))
         self.doc.recompute()
         self.constraints = self.collect_constraints()
 
