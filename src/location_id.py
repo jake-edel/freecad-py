@@ -11,19 +11,20 @@ class LocationFinder:
     def open_doc(self, filePath):
         self.doc = App.openDocument(filePath)
         self.sketchObj = self.doc.getObject('Sketch001')
+        self.locations = self.collect_locations()
 
     def collect_locations(self):
-        self.locations = {}
+        locations = {}
 
         parts = ["bot_post", "top_rail", "top_post"]
 
-        counter = 0
         for index, point in enumerate(self.sketchObj.Geometry):
-            self.locations[parts[index]] = {
+            locations[parts[index]] = {
                 'x': point.X,
                 'y': point.Y,
                 'tag': point.Tag
             }
+        return locations
 
     def save_locations(self, filePath):
         json.dump(self.locations, open(filePath, 'w'))

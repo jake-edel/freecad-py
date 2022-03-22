@@ -2,7 +2,7 @@ from constraint_id import ConstraintManager
 from location_id import LocationFinder
 import csv
 
-filePath = 'main_template.FCStd'
+filePath = './data/templates/main_template.FCStd'
 
 cm = ConstraintManager(filePath)
 
@@ -12,7 +12,6 @@ with open('data/rise_run.csv', newline = '') as csvfile:
     next(csv)
 
     counter = 1
-    railName ='rail' + str(counter).zfill(2)
 
     input("RAIL GENERATOR: Presss ENTER to generate rail.")
 
@@ -24,6 +23,7 @@ with open('data/rise_run.csv', newline = '') as csvfile:
         cm.set_constraint('Run', run)
         cm.set_constraint('Rise', rise)
 
+        railName ='rail' + str(counter).zfill(2)
         cm.save_constraints('./data/constraints/' + railName + '_constraints.json')
         cm.save_doc('./data/freecad_saves/' + railName + '.FCStd')
 

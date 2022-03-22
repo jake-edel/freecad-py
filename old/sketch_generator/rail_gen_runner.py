@@ -1,4 +1,4 @@
-from railbuilder import RailBuilder
+from old.sketch_generator.railbuilder import RailBuilder
 
 rise = 30
 run = 75

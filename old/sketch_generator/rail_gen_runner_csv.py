@@ -1,5 +1,5 @@
 import csv
-from railbuilder import RailBuilder
+from old.sketch_generator.railbuilder import RailBuilder
 
 with open('./data/rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
