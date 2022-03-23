@@ -1,25 +1,26 @@
 import sys, json
-
 from constraint_id import ConstraintManager
-from location_id import LocationFinder
+from constraint_mapper import ConstraintMapper
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
 from pprint import pprint
 
-constraintsFilePath = './data/constraints/rail01_constraints.json'
-constraints = open(constraintsFilePath)
+templateFile = './data/templates/part_template.FCStd'
+constraintFile = './data/constraints/rail01_constraints.json'
 
-constraints = json.load(constraints)
+template = ConstraintManager(templateFile)
 
-def find_part_constraints():
-    part_constraints = []
+cm = ConstraintMapper(constraintFile)
 
+parts = ["bot-post", "top-rail", "top-post"]
 
-    for key in constraints.keys():
-        part_constraints.append(key)
+pprint(template.constraints)
+pprint(cm.collect_constraints("bot-post"))
 
-    return part_constraints
+driving_constrants = cm.collect_constraints("bot-post")
 
-constraints = find_part_constraints()
-print(constraints)
+for constraint in driving_constrants:
+    print(constraint.split("_")[1]['value'])
+
+# template.set_constraint
