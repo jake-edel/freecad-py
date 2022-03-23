@@ -1,3 +1,5 @@
 __pycache__
 freecad_saves
-data/*
+data/constraints
+data/locations
+data/freecad_saves
