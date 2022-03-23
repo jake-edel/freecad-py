@@ -2,19 +2,20 @@ import json
 from pprint import pprint
 
 constraintsFilePath = './data/constraints/rail01_constraints.json'
-constraints = json.load(open(constraintsFilePath))
 
-parts = ["bot_post", "top_rail", "top_post"]
+class ConstraintMapper:
 
-def collect_constraints(part):
-    part_constraints = {}
+    def __init__(self, filePath):
+        self.constraints = self.open_constraints(filePath)
 
-    for constraint in constraints:
-        if constraint.startswith(part):
-            part_constraints[constraint] = constraints[constraint]
+    def open_constraints(self, filePath):
+        return json.load(open(filePath))
+    
+    def collect_constraints(self, part):
+        part_constraints = {}
 
-    return part_constraints
+        for constraint in self.constraints:
+            if constraint.startswith(part):
+                part_constraints[constraint] = self.constraints[constraint]
 
-pprint(collect_constraints("bot_post"))
-pprint(collect_constraints("top_post"))
-pprint(collect_constraints("top_rail"))
+        return part_constraints
