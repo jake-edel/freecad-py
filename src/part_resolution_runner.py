@@ -1,8 +1,8 @@
-from constraint_id import ConstraintManager
+from constraint_manager import ConstraintManager
 from location_id import LocationFinder
 import csv
 
-filePath = './data/templates/main_template.FCStd'
+filePath = './templates/main_template.FCStd'
 
 cm = ConstraintManager(filePath)
 
@@ -20,8 +20,8 @@ with open('data/rise_run.csv', newline = '') as csvfile:
         rise = float(row[0].split(',')[0])
         run = float(row[0].split(',')[1])
 
-        cm.set_constraint('Run', run)
-        cm.set_constraint('Rise', rise)
+        cm.set_distance_constraint('Run', run)
+        cm.set_distance_constraint('Rise', rise)
 
         railName ='rail' + str(counter).zfill(2)
         cm.save_constraints('./data/constraints/' + railName + '_constraints.json')
