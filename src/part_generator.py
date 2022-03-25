@@ -1,5 +1,6 @@
 from constraint_manager import ConstraintManager
 from constraint_finder import ConstraintFinder
+import json
 
 templateFile = './templates/part_template.FCStd'
 template = ConstraintManager(templateFile)
@@ -10,7 +11,7 @@ for rail in rails:
     constraintFile = './data/constraints/' + rail + '_constraints.json'
     cf = ConstraintFinder(constraintFile)
 
-    parts = ["bot-post", "top-rail", "top-post"]
+    parts = json.load(open('./data/parts/partlist.json'))
 
     for part in parts:
         driving_constrants = cf.find_constraints(part)

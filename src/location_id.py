@@ -16,7 +16,7 @@ class LocationFinder:
     def collect_locations(self):
         locations = {}
 
-        parts = ["bot_post", "top_rail", "top_post"]
+        parts = json.load(open('./data/parts/partlist.json'))
 
         for index, point in enumerate(self.sketchObj.Geometry):
             locations[parts[index]] = {
