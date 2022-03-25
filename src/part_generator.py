@@ -5,7 +5,7 @@ import json
 templateFile = './templates/part_template.FCStd'
 template = ConstraintManager(templateFile)
 
-rails = ['rail01', 'rail02', 'rail03']
+rails = json.load(open('./data/parts/rail_names.json'))
 
 for rail in rails:
     constraintFile = './data/constraints/' + rail + '_constraints.json'
