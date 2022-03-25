@@ -1,9 +1,8 @@
-import sys, json
+import sys, json, math
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
 from pprint import pprint
-from triangle_helper import TriangleHelper
 
 
 class ConstraintManager:
@@ -20,16 +19,15 @@ class ConstraintManager:
         pprint(self.constraints)
 
     def set_distance_constraint(self, name, value):
-        print(self.sketchObj.Constraints[18].Name)
         self.sketchObj.setDatum(self.constraints[name]['index'], App.Units.Quantity(str(value) + ' mm'))
         self.doc.recompute()
         self.constraints = self.collect_constraints()
 
     def set_angle_constraint(self, name, value):
-        if TriangleHelper.rads_to_degrees(float(value)) == 90:
+        if math.degrees(float(value)) == 90:
             return
     
-        self.sketchObj.setDatum(self.constraints[name]['index'], App.Units.Quantity(str(TriangleHelper.rads_to_degrees(float(value))) + ' deg'))
+        self.sketchObj.setDatum(self.constraints[name]['index'], App.Units.Quantity(str(math.degrees(float(value))) + ' deg'))
         self.doc.recompute()
         self.constraints = self.collect_constraints()
 
@@ -55,3 +53,7 @@ class ConstraintManager:
                 }
 
         return constraints
+
+    def generate_part_names(self):
+        for constraint in self.constraints:
+            print(constraint.split("_"))

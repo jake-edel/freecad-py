@@ -5,6 +5,7 @@ import csv
 filePath = './templates/main_template.FCStd'
 
 cm = ConstraintManager(filePath)
+cm.generate_part_names()
 
 
 with open('data/rise_run.csv', newline = '') as csvfile:
@@ -16,7 +17,6 @@ with open('data/rise_run.csv', newline = '') as csvfile:
     input("RAIL GENERATOR: Presss ENTER to generate rail.")
 
     for row in csv:
-
         rise = float(row[0].split(',')[0])
         run = float(row[0].split(',')[1])
 

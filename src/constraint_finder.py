@@ -1,5 +1,4 @@
 import json
-from pprint import pprint
 
 constraintsFilePath = './data/constraints/rail01_constraints.json'
 
@@ -11,7 +10,7 @@ class ConstraintFinder:
     def open_constraints(self, filePath):
         return json.load(open(filePath))
     
-    # Returns constraints speicific to given part
+    # Returns constraint objects speicific to given part
     def find_constraints(self, part):
         part_constraints = {}
 
