@@ -55,5 +55,11 @@ class ConstraintManager:
         return constraints
 
     def generate_part_names(self):
+        partNames = []
+
         for constraint in self.constraints:
-            print(constraint.split("_"))
+            firstLetter = constraint.split("_")[0][0]
+            if firstLetter.islower() and constraint.split("_")[0] not in partNames:
+                partNames.append(constraint.split("_")[0])
+
+        json.dump(partNames, open('./data/parts/partlist.json', 'w'))
