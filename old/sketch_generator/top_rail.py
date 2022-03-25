@@ -1,5 +1,5 @@
 import sys
-from triangle_helper import TriangleHelper
+from old.sketch_generator.triangle_helper import TriangleHelper
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App

@@ -1,4 +1,4 @@
-from triangle_helper import TriangleHelper
+from old.sketch_generator.triangle_helper import TriangleHelper
 from old.sketch_generator.bottom_post import BottomPost
 from top_rail import TopRail
 from top_post import TopPost

@@ -1,7 +1,4 @@
-from cProfile import run
-from lib2to3.pgen2.token import RIGHTSHIFTEQUAL
 import sys
-from triangle_helper import TriangleHelper
 FREECADPATH = '/usr/lib/freecad-python3/lib'
 sys.path.append(FREECADPATH)
 import FreeCAD as App
