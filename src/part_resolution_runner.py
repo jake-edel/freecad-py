@@ -5,11 +5,11 @@ import csv, json
 
 filePath = './templates/main_template.FCStd'
 
-cm = ConstraintManager(filePath)
-cm.generate_part_names()
+mainTemplate = ConstraintManager(filePath)
+mainTemplate.generate_part_names()
 
 
-with open('data/rise_run.csv', newline = '') as csvfile:
+with open('templates/rise_run.csv', newline = '') as csvfile:
     csv = csv.reader(csvfile, delimiter=' ', quotechar='|')
     next(csv)
 
@@ -18,18 +18,20 @@ with open('data/rise_run.csv', newline = '') as csvfile:
     input("RAIL GENERATOR: Presss ENTER to generate rail.")
 
     railNames = []
+
     for row in csv:
 
         rise = float(row[0].split(',')[0])
         run = float(row[0].split(',')[1])
 
-        cm.set_distance_constraint('Run', run)
-        cm.set_distance_constraint('Rise', rise)
+        mainTemplate.set_distance_constraint('Run', run)
+        mainTemplate.set_distance_constraint('Rise', rise)
 
         railName ='rail' + str(counter).zfill(2)
         railNames.append(railName)
-        cm.save_constraints('./data/constraints/' + railName + '_constraints.json')
-        cm.save_doc('./data/freecad_saves/' + railName + '.FCStd')
+
+        mainTemplate.save_constraints('./data/constraints/' + railName + '_constraints.json')
+        mainTemplate.save_doc('./data/freecad_saves/' + railName + '.FCStd')
 
         lf = LocationFinder('./data/freecad_saves/' + railName + '.FCStd')
         lf.collect_locations()
@@ -38,6 +40,5 @@ with open('data/rise_run.csv', newline = '') as csvfile:
         input("Generated rail with a " + str(rise) + '" rise and a ' + str(run) + '" run')
         
         counter += 1
-print(railNames)
 
 json.dump(railNames, open('./data/parts/rail_names.json', 'w'))
