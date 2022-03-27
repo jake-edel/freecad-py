@@ -58,8 +58,10 @@ class ConstraintManager:
         partNames = []
 
         for constraint in self.constraints:
-            firstLetter = constraint.split("_")[0][0]
-            if firstLetter.islower() and constraint.split("_")[0] not in partNames:
+            partName = constraint.split("_")[0]
+            firstLetter = partName[0]
+            
+            if firstLetter.islower() and partName not in partNames:
                 partNames.append(constraint.split("_")[0])
 
         json.dump(partNames, open('./data/parts/partlist.json', 'w'))
