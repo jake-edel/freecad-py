@@ -3,9 +3,10 @@ from constraint_finder import ConstraintFinder
 import json
 
 templateFile = './templates/part_template.FCStd'
+
 template = ConstraintManager(templateFile)
 
-rails = json.load(open('./data/parts/rail_names.json'))
+rails = json.load(open('./data/parts/raillist.json'))
 
 for rail in rails:
     constraintFile = './data/constraints/' + rail + '_constraints.json'

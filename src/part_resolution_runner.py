@@ -41,4 +41,4 @@ with open('templates/rise_run.csv', newline = '') as csvfile:
         
         counter += 1
 
-json.dump(railNames, open('./data/parts/rail_names.json', 'w'))
+json.dump(railNames, open('./data/parts/rail_list.json', 'w'))
